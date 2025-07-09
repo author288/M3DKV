@@ -304,6 +304,8 @@ def test_self_attention_top_runner():
         proj_path/"hdl"/"softmax"/"FpRoundMax.v",
         proj_path/"hdl"/"softmax"/"fp_adder_tree.v",
         proj_path/"hdl"/"self_attention_top.v",
+        proj_path/"hdl"/"M3D_unshared_block1.v",
+        proj_path/"hdl"/"M3D_unshared_block2.v",
         proj_path/"hdl"/"GEMV_shared_block1.v",
         proj_path/"hdl"/"GEMV_shared_block2.v",
         proj_path/"hdl"/"Input"/"cmIn_control.v",
