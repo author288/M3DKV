@@ -68,8 +68,19 @@ The `scripts/` directory contains Python scripts to reproduce key figures and co
 
 The repository is organized as follows:
 
-- `rtl/`: Verilog RTL source code for the M3DKV accelerator.
-  
+- `rtl/`: Verilog RTL source code for the M3DKV.
+  - `DRAM/`: Contains behavioral models of gain-cell macros used for storage.
+  - `Accumulation/`: Modules responsible for performing accumulation operations in GEMV (General Matrix-Vector Multiplication).
+  - `Input/`: Modules dedicated to preprocessing floating-point data and controlling the dataflow during write operations.
+  - `Output/`: Modules that handle post-processing of data before output.
+  - `Math/`: Essential mathematical operation modules for self-attention, including exponentiation, reciprocal calculation, and floating-point multiplication and addition.
+  - `softmax/`: Includes submodules implementing the softmax function as described in the paper, specifically the Arg_Max, Row_Reduce, and Norm_Exp modules (see Figure 4).
+  - `GEMV_shared_block1/`: Instantiates the shared GEMV `pre_align` module (Figure 4), aligning floating-point numbers for accumulation during matrix multiplication.
+  - `GEMV_shared_block2/`: Instantiates the shared GEMV `accumulation` module (Figure 4), performing internal accumulations in matrix multiplication.
+  - `M3D_unshared_block1/`: Instantiates GEMV-specific modules that are not shared across operations, including Write Control, Compute Control, and Input Control modules (Figure 4).
+  - `M3D_unshared_block2/`: Instantiates GEMV-specific Output Control modules (Figure 4) managing data flow post computation.
+  - `self_attention_top/`: Top-level module integrating all submodules for executing the complete self-attention computation.
+
 - `tb/`: cocotb-based testbench files and Makefile for RTL simulation. This includes Python test scripts that verify the hardware modules.
 - `scripts/`: Python scripts for data analysis and plotting. These scripts reproduce the figures in the paper from raw simulation data.
 - `results/`: Directory containing generated data files and example output figures. This can include sample CSV results and PNGs from the scripts.
