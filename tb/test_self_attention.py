@@ -270,7 +270,7 @@ async def attention_test(dut, q, k, v, para):
     dut._log.info(f"[golden_out]: {golden_out.squeeze()}")
     max_abs, max_rel = compare_vector(out_float, golden_out.squeeze())
     dut._log.info(f"[out]   max|abs|={max_abs:.3e}, max|rel|={max_rel:.3e}")
-    assert max_abs < 0.5 or max_rel < 1e-1
+    assert max_abs < 0.1 or max_rel < 1e-1
     dut.log.info(f"out passed")
 
 
@@ -282,7 +282,7 @@ async def basic_test(dut):
         k_len = 1024
         hidden_size = 64
         rng = np.random.default_rng()    
-        low, high = 0,0.1
+        low, high = -0.1,0.1
 
         k = rng.uniform(low, high, size=(k_len, hidden_size))
         q = rng.uniform(low, high, size=(q_len, hidden_size))
