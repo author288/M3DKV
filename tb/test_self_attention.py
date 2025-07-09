@@ -284,24 +284,12 @@ async def basic_test(dut):
         rng = np.random.default_rng()    
         low, high = 0,0.1
 
-        # segment_vals = np.linspace(1.0, 0.0, 4, dtype=np.float32)   # 形状 (32,)
-        # segments = np.array_split(np.arange(k_len), 4)   # segments[i] 是第 i 段的行索引
-        # row_vals = np.empty(k_len, dtype=np.float32)
-        # for idx, rows in enumerate(segments):
-        #     row_vals[rows] = segment_vals[idx]
-
-        # v = np.tile(row_vals[:, None], (1, hidden_size))
-
-        # k = rng.uniform(low, high, size=(k_len, hidden_size))
-        # q = rng.uniform(low, high, size=(q_len, hidden_size))
-        # v = rng.uniform(low, high, size=(k_len, hidden_size))
-
-        q = np.full((q_len, hidden_size), 1.0/64)
-        k = np.full((k_len, hidden_size), 1.0)
-        v = np.full((k_len, hidden_size), 1)
-        # print(f"q: {q}")
-        # print(f"k: {k}")
-        # print(f"v: {v}")
+        k = rng.uniform(low, high, size=(k_len, hidden_size))
+        q = rng.uniform(low, high, size=(q_len, hidden_size))
+        v = rng.uniform(low, high, size=(k_len, hidden_size))
+        print(f"q: {q}")
+        print(f"k: {k}")
+        print(f"v: {v}")
         
         await attention_test(dut, q, k, v, para)
 
